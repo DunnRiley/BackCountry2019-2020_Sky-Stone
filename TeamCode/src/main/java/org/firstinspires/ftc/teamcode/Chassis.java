@@ -1,4 +1,8 @@
-import java.util.Timer;
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.hardware.bosch.BNO055IMU;
+
+import org.firstinspires.ftc.teamcode.sensors.IMUClass;
 
 public class Chassis{
 
@@ -8,6 +12,7 @@ public class Chassis{
     private DriveUnit LeftBack;
 
     private double runTime;
+    private IMUClass IMU;
 
 
     public Chassis(){
@@ -15,6 +20,7 @@ public class Chassis{
         this.LeftFront= new DriveUnit(1,4,"LeftFront",true);
         this.RightBack= new DriveUnit(1,4,"RightBack",false);
         this.LeftBack= new DriveUnit(1,4,"LeftBack",true);
+        this.IMU = new IMUClass(FTCUtilities.getIMU("BNO055IMU"));
 
     }
 
@@ -34,7 +40,7 @@ public class Chassis{
         LeftFront.zeroDistance();
 
         boolean run = true;
-        While(run){
+        while(run){
             RightBack.setPower(Speed);
             LeftBack.setPower(Speed);
             RightFront.setPower(Speed);
@@ -43,7 +49,7 @@ public class Chassis{
             double TravledRight = RightFront.getInchesTravelled();
             double TravledLeft = LeftFront.getInchesTravelled();
 
-            if(TravledRight => Distence || TravledLeft => Distence){
+            if((TravledRight > Distence) || (TravledLeft > Distence)){
                 run = false;
             }
         }
@@ -55,9 +61,10 @@ public class Chassis{
     }
 
     private void rotate(int degrees, double power){
+
         double  leftPower, rightPower;
 
-        resetAngle();
+        IMU.resetAngle();
 
         if (degrees < 0)
         {   // turn right.
@@ -78,37 +85,36 @@ public class Chassis{
 
         if (degrees < 0)
         {
-            while (opModeIsActive() && getAngle() == 0) {}
-            while (opModeIsActive() && getAngle() > degrees) {}
+            while (IMU.getAngle() == 0) {}
+            while (IMU.getAngle() > degrees) {}
         }
         else    // left turn.
-            while (opModeIsActive() && getAngle() < degrees) {}
+            while (IMU.getAngle() < degrees) {}
 
         RightFront.setPower(0);
         LeftFront.setPower(0);
         RightBack.setPower(0);
         LeftBack.setPower(0);
-
-        resetAngle();
+        IMU.resetAngle();
     }
 
-    public void Strafe(double speed,double Rotation){
+    public void Strafe(double speed,int Distence){
         RightBack.zeroDistance();
         LeftBack.zeroDistance();
         RightFront.zeroDistance();
         LeftFront.zeroDistance();
 
         boolean run = true;
-        While(run){
-            RightBack.setPower(-Speed);
-            LeftBack.shetPower(Speed);
-            RightFront.setPower(-Speed);
-            LeftFront.setPower(Speed);
+        while(run){
+            RightBack.setPower(-speed);
+            LeftBack.setPower(speed);
+            RightFront.setPower(-speed);
+            LeftFront.setPower(speed);
 
             double TravledRight = RightFront.getInchesTravelled();
             double TravledLeft = LeftFront.getInchesTravelled();
 
-            if(TravledRight => Distence || TravledLeft => Distence){
+            if(TravledRight > Distence || TravledLeft > Distence){
                 run = false;
             }
         }
