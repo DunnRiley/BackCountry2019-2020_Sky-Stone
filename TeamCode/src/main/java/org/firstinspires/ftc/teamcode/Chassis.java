@@ -125,9 +125,5 @@ public class Chassis{
         LeftFront.setPower(0);
     }
 
-    public void Arc(double speed,double Rotation){
-
-}
-
 }
 
