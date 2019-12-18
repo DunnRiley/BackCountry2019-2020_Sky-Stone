@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
+import org.firstinspires.ftc.teamcode.sensors.IMU;
 
-import org.firstinspires.ftc.teamcode.sensors.IMUClass;
+import java.util.Timer;
 
 public class Chassis{
 
@@ -10,9 +10,9 @@ public class Chassis{
     private DriveUnit LeftFront;
     private DriveUnit RightBack;
     private DriveUnit LeftBack;
+    private org.firstinspires.ftc.teamcode.sensors.IMU IMU;
 
     private double runTime;
-    private IMUClass IMU;
 
 
     public Chassis(){
@@ -20,7 +20,7 @@ public class Chassis{
         this.LeftFront= new DriveUnit(1,4,"LeftFront",true);
         this.RightBack= new DriveUnit(1,4,"RightBack",false);
         this.LeftBack= new DriveUnit(1,4,"LeftBack",true);
-        this.IMU = new IMUClass(FTCUtilities.getIMU("BNO055IMU"));
+        this.IMU= new IMU(FTCUtilities.getIMU("IMU"));
 
     }
 
@@ -49,7 +49,7 @@ public class Chassis{
             double TravledRight = RightFront.getInchesTravelled();
             double TravledLeft = LeftFront.getInchesTravelled();
 
-            if((TravledRight > Distence) || (TravledLeft > Distence)){
+            if(TravledRight > Distence || TravledLeft > Distence){
                 run = false;
             }
         }
@@ -61,7 +61,6 @@ public class Chassis{
     }
 
     private void rotate(int degrees, double power){
-
         double  leftPower, rightPower;
 
         IMU.resetAngle();
@@ -95,10 +94,11 @@ public class Chassis{
         LeftFront.setPower(0);
         RightBack.setPower(0);
         LeftBack.setPower(0);
+
         IMU.resetAngle();
     }
 
-    public void Strafe(double speed,int Distence){
+    public void Strafe(double speed,double Distence){
         RightBack.zeroDistance();
         LeftBack.zeroDistance();
         RightFront.zeroDistance();

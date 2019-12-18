@@ -1,3 +1,6 @@
+package org.firstinspires.ftc.teamcode;
+import org.firstinspires.ftc.teamcode.Robot;
+
 class TestPlan{
     private Robot r;
     public TestPlan(Robot r){
@@ -7,4 +10,4 @@ class TestPlan{
         r.getChassis.StraitMotion(1.0,5);
         r.getChassis.StraitMotion(1.0,5);
     }
-}  
+}

@@ -1,3 +1,7 @@
+package org.firstinspires.ftc.teamcode;
+
+import org.firstinspires.ftc.teamcode.Chassis;
+
 import java.util.Iterator;
 
 public class Robot {
@@ -14,9 +18,5 @@ public class Robot {
 
     public void init(){
         chassis.init();
-    }
-
-    public chassis getChassis(){
-        return chassis
     }
 }
