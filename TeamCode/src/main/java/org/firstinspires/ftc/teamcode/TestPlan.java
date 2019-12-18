@@ -2,12 +2,12 @@ package org.firstinspires.ftc.teamcode;
 import org.firstinspires.ftc.teamcode.Robot;
 
 class TestPlan{
-    private Robot r;
-    public TestPlan(Robot r){
-        this.r = r;
+    private Chassis c;
+    public TestPlan(Robot c){
+        this.c = new Chassis();
     }
-    public void run(r){
-        r.getChassis.StraitMotion(1.0,5);
-        r.getChassis.StraitMotion(1.0,5);
+    public void run(){
+        c.StraitMotion(1.0,5);
+        c.StraitMotion(1.0,5);
     }
 }
